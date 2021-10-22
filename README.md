@@ -38,6 +38,7 @@ Open notepad as Administrator, go to C:\Windows\System32\drivers\etc\hosts and e
 
 Go to C:\xampp\apache\conf\extra\httpd-vhosts.conf and enter the next information: 
 
+```
 NameVirtualHost *
 <VirtualHost *>
   DocumentRoot "C:\xampp\htdocs"
@@ -50,5 +51,5 @@ NameVirtualHost *
     Require all granted
   </Directory>
 </VirtualHost>
-
+```
 Restart Apache
