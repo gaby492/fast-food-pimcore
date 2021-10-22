@@ -12,27 +12,26 @@
   - Add extension=php_gd.dll
 
 ## Get project from repo
-Go to C:/xampp/htdocs and open the cmd 
-clone the repo
-cd repo_name  
-COMPOSER_MEMORY_LIMIT=-1 composer install
+- Go to C:/xampp/htdocs and open the cmd 
+- clone the repo
+- cd repo_name  
+- COMPOSER_MEMORY_LIMIT=-1 composer install
 
-## Create the database
+### Create the database
 Go to phpmyadmin and create a pimcore user and the pimcore DB.
 
-## Install pimcore
+### Install pimcore
 cd my-project/
 COMPOSER_MEMORY_LIMIT=-1 ./vendor/bin/pimcore-install --ignore-existing-config
 
-## Install assets
+### Install assets
 php bin/console cache:clear
 php bin/console assets:install web 
-
 
 ## Classes rebuild command 
 php bin/console pimcore:deployment:classes-rebuild -c -d -n
 
-## Create Virtual Host
+### Create Virtual Host
 Open notepad as Administrator, go to C:\Windows\System32\drivers\etc\hosts and enter
 127.0.0.1 pimcore.local.com
 
