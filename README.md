@@ -1,33 +1,55 @@
-# Pimcore Project Skeleton 
+# Pimcore 6 Local Installation (XAMPP)
 
-This skeleton should be used by experienced Pimcore developers for starting a new project from the ground up. 
-If you are new to Pimcore, it's better to start with our demo package, listed below 😉
+## System requirements 
+- XAMPP (PHP >= 7.2, MariaDB, Apache). I used PHP 7.3.27
+- Composer (Latest version)
+- Git
+- Go to C:\xampp\php\php.ini and edit php.ini (You can save the original one under php.ini.ORIGINAL)
+	- memory_limit >= 512M
+	- upload_max_filesize and post_max_size >= 100M (depending on your data)
+	- uncomment ;extension=intl  (remove the semicolon)
+	- Add zend_extension=C:\xampp\php\ext\php_opcache.dll at the end of file
+  - Add extension=php_gd.dll
 
-## Getting started
-```bash
-COMPOSER_MEMORY_LIMIT=-1 composer create-project pimcore/skeleton my-project
-cd ./my-project
-./vendor/bin/pimcore-install
-```
+## Get project from repo
+Go to C:/xampp/htdocs and open the cmd 
+clone the repo
+cd repo_name  
+COMPOSER_MEMORY_LIMIT=-1 composer install
 
-- Point your virtual host to `my-project/public` 
-- Open https://your-host/admin in your browser
-- Done! 😎
+## Create the database
+Go to phpmyadmin and create a pimcore user and the pimcore DB.
 
-## Docker
+## Install pimcore
+cd my-project/
+COMPOSER_MEMORY_LIMIT=-1 ./vendor/bin/pimcore-install --ignore-existing-config
 
-You can also use Docker to setup a new Pimcore Installation:
+## Install assets
+php bin/console cache:clear
+php bin/console assets:install web 
 
-```bash
-docker run --rm -v `pwd`:/var/www/html pimcore/pimcore:PHP8.0-fpm composer create-project pimcore/skeleton my-project
-cd ./my-project
-docker-compose up -d
-docker-compose exec php-fpm vendor/bin/pimcore-install --mysql-host-socket=db --mysql-username=pimcore --mysql-password=pimcore --mysql-database=pimcore
-docker-compose exec php-fpm chown -R www-data:www-data var/*
 
-```
-You can now navigate your browser to https://localhost or https://localhost/admin.
-The default docker-compose comes with PHP 8.0 on debian and mariadb 10.5.
+## Classes rebuild command 
+php bin/console pimcore:deployment:classes-rebuild -c -d -n
 
-## Other demo/skeleton packages
-- [Pimcore Basic Demo](https://github.com/pimcore/demo)
+## Create Virtual Host
+Open notepad as Administrator, go to C:\Windows\System32\drivers\etc\hosts and enter
+127.0.0.1 pimcore.local.com
+
+
+Go to C:\xampp\apache\conf\extra\httpd-vhosts.conf and enter the next information: 
+
+NameVirtualHost *
+<VirtualHost *>
+  DocumentRoot "C:\xampp\htdocs"
+  ServerName localhost
+</VirtualHost>
+<VirtualHost *>
+  DocumentRoot "C:\xampp\htdocs\my-project\web"
+  ServerName pimcore.local.com
+  <Directory "C:\xampp\htdocs\my-project\web">
+    Require all granted
+  </Directory>
+</VirtualHost>
+
+Restart Apache
