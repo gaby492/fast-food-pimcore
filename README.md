@@ -45,9 +45,9 @@ NameVirtualHost *
   ServerName localhost
 </VirtualHost>
 <VirtualHost *>
-  DocumentRoot "C:\xampp\htdocs\my-project\web"
+  DocumentRoot "C:\xampp\htdocs\my-project\public"
   ServerName pimcore.local.com
-  <Directory "C:\xampp\htdocs\my-project\web">
+  <Directory "C:\xampp\htdocs\my-project\public">
     Require all granted
   </Directory>
 </VirtualHost>
