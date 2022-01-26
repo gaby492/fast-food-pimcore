@@ -26,7 +26,7 @@ COMPOSER_MEMORY_LIMIT=-1 ./vendor/bin/pimcore-install --ignore-existing-config
 
 ### Install assets
 - php bin/console cache:clear
-- php bin/console assets:install web 
+- php bin/console assets:install
 
 ## Classes rebuild command 
 php bin/console pimcore:deployment:classes-rebuild -c -d -n
