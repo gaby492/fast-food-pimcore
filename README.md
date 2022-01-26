@@ -1,7 +1,7 @@
 # Pimcore 6 Local Installation (XAMPP)
 
 ## System requirements 
-- XAMPP (PHP >= 7.2, MariaDB, Apache). I used PHP 7.3.27
+- XAMPP (PHP >= 8.0, MariaDB, Apache).
 - Composer (Latest version)
 - Git
 - Go to C:\xampp\php\php.ini and edit php.ini (You can save the original one under php.ini.ORIGINAL)
@@ -25,8 +25,8 @@ cd my-project/
 COMPOSER_MEMORY_LIMIT=-1 ./vendor/bin/pimcore-install --ignore-existing-config
 
 ### Install assets
-php bin/console cache:clear
-php bin/console assets:install web 
+- php bin/console cache:clear
+- php bin/console assets:install web 
 
 ## Classes rebuild command 
 php bin/console pimcore:deployment:classes-rebuild -c -d -n
